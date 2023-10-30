@@ -5,3 +5,4 @@ streamlit==1.17.0
 streamlit_webrtc==0.47.1
 ultralytics==8.0.203
 opencv-python-headless==4.8.1.78
+matplotlib==3.8.0
