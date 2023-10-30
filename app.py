@@ -11,9 +11,7 @@ from ultralytics import YOLO
 model = YOLO("best5.pt")
 webrtc_streamer(
     # ...
-    rtc_configuration={  # Add this config
-        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-    }
+    
     # ...
 )
 classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone', 'Safety Vest', 'machinery', 'vehicle']
@@ -56,5 +54,8 @@ webrtc_ctx = webrtc_streamer(
     mode=WebRtcMode.SENDRECV,
     video_frame_callback=video_frame_callback,
     media_stream_constraints={"video": True, "audio": False},
+    rtc_configuration={
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    },
     async_processing=True,
 )
