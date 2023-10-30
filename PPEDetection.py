@@ -4,15 +4,15 @@ import cv2
 import cvzone
 from ultralytics import YOLO
 
-cap = cv2.VideoCapture(1)  # For Webcam
+# cap = cv2.VideoCapture(0)  # For Webcam
+# cap = cv2.VideoCapture(1)  # For VirtualCam
 # cap.set(3, 1280)
 # cap.set(4, 720)
-# cap = cv2.VideoCapture("../Videos/ppe-3.mp4")  # For Video
+cap = cv2.VideoCapture("../Videos/ppe-1.mp4")  # For Video
 
-model = YOLO("ppe.pt")
+model = YOLO("best5.pt")
 
-classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone',
-              'Safety Vest', 'machinery', 'vehicle']
+classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone', 'Safety Vest', 'machinery', 'vehicle']
 myColor = (0, 0, 255)
 while True:
     success, img = cap.read()
@@ -33,10 +33,10 @@ while True:
             cls = int(box.cls[0])
             currentClass = classNames[cls]
             print(currentClass)
-            if conf>0.5:
-                if currentClass =='NO-Hardhat' or currentClass =='NO-Safety Vest' or currentClass == "NO-Mask":
+            if conf > 0.5:
+                if currentClass =='no-helmet' or currentClass =='no-mask' or currentClass == "no-gloves" or currentClass == "no-goggles":
                     myColor = (0, 0,255)
-                elif currentClass =='Hardhat' or currentClass =='Safety Vest' or currentClass == "Mask":
+                elif currentClass =='helmet' or currentClass =='vest' or currentClass == "mask" or currentClass == "gloves":
                     myColor =(0,255,0)
                 else:
                     myColor = (255, 0, 0)
