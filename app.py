@@ -9,7 +9,13 @@ from streamlit_webrtc import WebRtcMode, webrtc_streamer
 from ultralytics import YOLO
 
 model = YOLO("best5.pt")
-
+webrtc_streamer(
+    # ...
+    rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
+    # ...
+)
 classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone', 'Safety Vest', 'machinery', 'vehicle']
 myColor = (0, 0, 255)
 
