@@ -9,7 +9,7 @@ from streamlit_webrtc import WebRtcMode, webrtc_streamer
 from ultralytics import YOLO
 
 model = YOLO("best5.pt")
-classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone', 'Safety Vest', 'machinery', 'vehicle']
+classNames = ['Hardhat', 'Mask', 'NO-Hardhat', 'NO-Mask', 'NO-Safety Vest', 'Person', 'Safety Cone', 'Safety Vest']
 myColor = (0, 0, 255)
 
 def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
@@ -27,7 +27,7 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
                 # Class Name
                 cls = int(box.cls[0])
                 currentClass = classNames[cls]
-                if conf>0.2:
+                if conf>0.5:
                     if currentClass =='NO-Hardhat' or currentClass =='NO-Safety Vest' or currentClass == "NO-Mask":
                         myColor = (0, 0,255)
                     elif currentClass =='Hardhat' or currentClass =='Safety Vest' or currentClass == "Mask":
